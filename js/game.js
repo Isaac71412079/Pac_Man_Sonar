@@ -342,12 +342,14 @@ function score(s, type) {
 		erasePacman(); 
 		eraseGhost(type); 
 		$("#board").append('<span class="combo">' + SCORE_GHOST_COMBO + '</span>');
+
 		$("#board span.combo").css('top', eval('GHOST_' + type.toUpperCase() + '_POSITION_Y - 10') + 'px');
 		$("#board span.combo").css('left', eval('GHOST_' + type.toUpperCase() + '_POSITION_X - 10') + 'px');
-		SCORE_GHOST_COMBO = SCORE_GHOST_COMBO * 2;
+
 	} else if (type && type === "fruit") { 
 		$("#board").append('<span class="fruits">' + s + '</span>');
 		$("#board span.fruits").css('top', (FRUITS_POSITION_Y - 14) + 'px');
 		$("#board span.fruits").css('left', (FRUITS_POSITION_X - 14) + 'px');
 	}
 }
+	

@@ -71,14 +71,23 @@ function initGhosts() {
 	initGhost('inky');
 	initGhost('clyde');
 }
+
+var ghostCanvasContexts = {
+    blinky: null,
+    pinky: null,
+    inky: null,
+    clyde: null
+};
+
 function initGhost(ghost) { 
-	var canvas = document.getElementById('canvas-ghost-' + ghost);
-	canvas.setAttribute('width', '550');
-	canvas.setAttribute('height', '550');
-	if (canvas.getContext) { 
-		eval('GHOST_' + ghost.toUpperCase() + '_CANVAS_CONTEXT = canvas.getContext("2d")');
-	}
+    var canvas = document.getElementById('canvas-ghost-' + ghost);
+    canvas.setAttribute('width', '550');
+    canvas.setAttribute('height', '550');
+    if (canvas.getContext) { 
+        ghostCanvasContexts[ghost.toLowerCase()] = canvas.getContext("2d");
+    }
 }
+
 function resetGhosts() { 
 	stopGhosts();
 
@@ -126,8 +135,9 @@ function resetGhosts() {
 	GHOST_CLYDE_AFFRAID_TIMER = null;
 	GHOST_CLYDE_AFFRAID_STATE = 0;
 }
-function getGhostCanevasContext(ghost) { 
-	return eval('GHOST_' + ghost.toUpperCase() + '_CANVAS_CONTEXT');
+
+function getGhostCanevasContext(ghost) {
+    return ghostCanvasContexts[ghost.toLowerCase()];
 }
 
 function drawGhosts() { 
@@ -139,6 +149,7 @@ function drawGhosts() {
 function drawGhost(ghost) { 
 
 	var ctx = getGhostCanevasContext(ghost);
+
 	
 	if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === 0')) { 
 		eval('ctx.fillStyle = GHOST_' + ghost.toUpperCase() + '_COLOR');
