@@ -366,6 +366,7 @@ function moveGhost(ghost) {
     }
 }
 
+
 function testGhostTunnel(ghost) {
     if (window['GHOST_' + ghost.toUpperCase() + '_STATE'] === 0) {
         if (isInTunnel(ghost) && !window['GHOST_' + ghost.toUpperCase() + '_TUNNEL']) {
@@ -379,6 +380,14 @@ function testGhostTunnel(ghost) {
         }
     }
 }
+/*
+function isInTunnel(ghost) { 
+	if ( ( eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X >= 2') && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X <= 106') ) && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_Y === 258') ) { 
+		return true;
+	} else if ( ( eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X >= 462') && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X <= 548') ) && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_Y === 258') ) { 
+		return true;
+	}
+}*/
 
 function isInTunnel(ghost) {
     return (
