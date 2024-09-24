@@ -49,15 +49,18 @@ function Timer(callback, delay) {
     this.start();
 }
 
-function oneAxe() { 
-	return Math.floor( Math.random() * ( 2 - 1 + 1 ) + 1 );
+function oneAxe() {
+    return Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xFFFFFFFF + 1) * 2) + 1;
 }
-function anyGoodIdea() { 
-	return Math.floor( Math.random() * ( 4 - 1 + 1 ) + 1 );
+
+function anyGoodIdea() {
+    return Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xFFFFFFFF + 1) * 4) + 1;
 }
-function whatsYourProblem() { 
-	return Math.floor( Math.random() * ( 6 - 1 + 1 ) + 1 );
+
+function whatsYourProblem() {
+    return Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xFFFFFFFF + 1) * 6) + 1;
 }
+
 
 CanvasRenderingContext2D.prototype.roundRect = function(sx, sy, ex, ey, r) {
     var r2d = Math.PI/180;
