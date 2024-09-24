@@ -61,7 +61,6 @@ function whatsYourProblem() {
     return Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xFFFFFFFF + 1) * 6) + 1;
 }
 
-
 CanvasRenderingContext2D.prototype.roundRect = function(sx, sy, ex, ey, r) {
     var r2d = Math.PI/180;
     if( ( ex - sx ) - ( 2 * r ) < 0 ) { r = ( ( ex - sx ) / 2 ); } 
