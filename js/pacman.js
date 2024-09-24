@@ -283,6 +283,7 @@ function testGhostsPacman() {
 	testGhostPacman('clyde');
 
 }
+
 function testGhostPacman(ghost) { 
 	eval('var positionX = GHOST_' + ghost.toUpperCase() + '_POSITION_X');
 	eval('var positionY = GHOST_' + ghost.toUpperCase() + '_POSITION_Y');
@@ -296,6 +297,7 @@ function testGhostPacman(ghost) {
 		}
 	}
 }
+
 function testFruitsPacman() { 
 	
 	if (FRUIT_CANCEL_TIMER != null) { 

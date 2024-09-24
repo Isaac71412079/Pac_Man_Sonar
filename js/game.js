@@ -310,46 +310,47 @@ function message(m) {
 function clearMessage() { 
 	$("#message").html("");
 	$("#message").removeClass("red");
-}
+}	
 
 function score(s, type) { 
+    var scoreBefore = (SCORE / 10000) | 0;
+    SCORE += s;
 
-	var scoreBefore = (SCORE / 10000) | 0;
-	
-	SCORE += s;
-	if (SCORE === 0) { 
-		$('#score span').html("00");
-	} else { 
-		$('#score span').html(SCORE);
-	}
-	
-	var scoreAfter = (SCORE / 10000) | 0;
-	if (scoreAfter > scoreBefore) { 
-		lifes( +1 );
-	}
+    if (SCORE === 0) { 
+        $('#score span').html("00");
+    } else { 
+        $('#score span').html(SCORE);
+    }
 
-	
-	if (SCORE > HIGHSCORE) { 
-		HIGHSCORE = SCORE;
-		if (HIGHSCORE === 0) { 
-			$('#highscore span').html("00");
-		} else { 
-			$('#highscore span').html(HIGHSCORE);
-		}
-	}
-	
-	if (type && (type === "clyde" || type === "pinky" || type === "inky" || type === "blinky") ) { 
-		erasePacman(); 
-		eraseGhost(type); 
-		$("#board").append('<span class="combo">' + SCORE_GHOST_COMBO + '</span>');
+    var scoreAfter = (SCORE / 10000) | 0;
+    if (scoreAfter > scoreBefore) { 
+        lifes(+1);
+    }
 
-		$("#board span.combo").css('top', eval('GHOST_' + type.toUpperCase() + '_POSITION_Y - 10') + 'px');
-		$("#board span.combo").css('left', eval('GHOST_' + type.toUpperCase() + '_POSITION_X - 10') + 'px');
+    if (SCORE > HIGHSCORE) { 
+        HIGHSCORE = SCORE;
+        if (HIGHSCORE === 0) { 
+            $('#highscore span').html("00");
+        } else { 
+            $('#highscore span').html(HIGHSCORE);
+        }
+    }
 
-	} else if (type && type === "fruit") { 
-		$("#board").append('<span class="fruits">' + s + '</span>');
-		$("#board span.fruits").css('top', (FRUITS_POSITION_Y - 14) + 'px');
-		$("#board span.fruits").css('left', (FRUITS_POSITION_X - 14) + 'px');
-	}
+    if (type && (type === "clyde" || type === "pinky" || type === "inky" || type === "blinky")) { 
+        erasePacman(); 
+        eraseGhost(type); 
+
+        $("#board").append('<span class="combo">' + SCORE_GHOST_COMBO + '</span>');
+        
+        var ghostPositionY = window[`GHOST_${type.toUpperCase()}_POSITION_Y`];
+        var ghostPositionX = window[`GHOST_${type.toUpperCase()}_POSITION_X`];
+        
+        $("#board span.combo").css('top', (ghostPositionY - 10) + 'px');
+        $("#board span.combo").css('left', (ghostPositionX - 10) + 'px');
+        
+    } else if (type && type === "fruit") { 
+        $("#board").append('<span class="fruits">' + s + '</span>');
+        $("#board span.fruits").css('top', (FRUITS_POSITION_Y - 14) + 'px');
+        $("#board span.fruits").css('left', (FRUITS_POSITION_X - 14) + 'px');
+    }
 }
-	
