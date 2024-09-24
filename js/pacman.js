@@ -284,18 +284,21 @@ function testGhostsPacman() {
 
 }
 
-function testGhostPacman(ghost) { 
-	eval('var positionX = GHOST_' + ghost.toUpperCase() + '_POSITION_X');
-	eval('var positionY = GHOST_' + ghost.toUpperCase() + '_POSITION_Y');
-		
-	if (positionX <= PACMAN_POSITION_X + PACMAN_GHOST_GAP && positionX >= PACMAN_POSITION_X - PACMAN_GHOST_GAP && positionY <= PACMAN_POSITION_Y + PACMAN_GHOST_GAP && positionY >= PACMAN_POSITION_Y - PACMAN_GHOST_GAP ) { 
-		eval('var state = GHOST_' + ghost.toUpperCase() + '_STATE');
-		if (state === 0) { 
-			killPacman();
-		} else if (state === 1) { 
-			startEatGhost(ghost);
-		}
-	}
+function testGhostPacman(ghost) {
+    var positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
+    var positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
+    
+    if (positionX <= PACMAN_POSITION_X + PACMAN_GHOST_GAP && positionX >= PACMAN_POSITION_X - PACMAN_GHOST_GAP &&
+        positionY <= PACMAN_POSITION_Y + PACMAN_GHOST_GAP && positionY >= PACMAN_POSITION_Y - PACMAN_GHOST_GAP) {
+        
+        var state = window[`GHOST_${ghost.toUpperCase()}_STATE`];
+        
+        if (state === 0) {
+            killPacman();
+        } else if (state === 1) {
+            startEatGhost(ghost);
+        }
+    }
 }
 
 function testFruitsPacman() { 
