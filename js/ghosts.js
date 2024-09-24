@@ -380,14 +380,6 @@ function testGhostTunnel(ghost) {
         }
     }
 }
-/*
-function isInTunnel(ghost) { 
-	if ( ( eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X >= 2') && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X <= 106') ) && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_Y === 258') ) { 
-		return true;
-	} else if ( ( eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X >= 462') && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_X <= 548') ) && eval('GHOST_' + ghost.toUpperCase() + '_POSITION_Y === 258') ) { 
-		return true;
-	}
-}*/
 
 function isInTunnel(ghost) {
     return (
@@ -396,76 +388,75 @@ function isInTunnel(ghost) {
     );
 }
 
-function changeDirection(ghost) { 
-	eval('var direction = GHOST_' + ghost.toUpperCase() + '_DIRECTION');
-	eval('var state = GHOST_' + ghost.toUpperCase() + '_STATE');
-	eval('var ghostX = GHOST_' + ghost.toUpperCase() + '_POSITION_X');
-	eval('var ghostY = GHOST_' + ghost.toUpperCase() + '_POSITION_Y');
-	
-	var tryDirection = oneDirection();
-	
-	if (state === 0 || state === 1) { 
-		if (ghostX != 276 && ghostY != 258) { 
-			var pacmanX = PACMAN_POSITION_X;
-			var pacmanY = PACMAN_POSITION_Y;
-			var axe = oneAxe();
-			if (ghost === "blinky") { 
-			
-				var nothing = whatsYourProblem();
-				if (nothing < 6) { 
-					tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
-						axe ++;
-						if (axe > 2) axe = 1; 
-						tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					}
-				}
-				
-			} else if (ghost === "pinky") { 
-			
-				var nothing = whatsYourProblem();
-				if (nothing < 3) { 
-				
-					tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
-						axe ++;
-						if (axe > 2) axe = 1; 
-						tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					}
-					tryDirection = reverseDirection(tryDirection);
-				}
-				
-			} else if (ghost === "inky") { 
-				var good = anyGoodIdea();
-				if (good < 3) { 
-					tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					if ( !(canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) ) { 
-						axe ++;
-						if (axe > 2) axe = 1; 
-						tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
-					}
-				}
-			}
-		}
-		if (state === 1) { 
-			tryDirection = reverseDirection(tryDirection);
-		}
-	} else { 
-		var axe = oneAxe();
-		tryDirection = getRightDirectionForHome(axe, ghostX, ghostY);
-		if (canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) { 
-		
-		} else { 
-			axe ++;
-			if (axe > 2) axe = 1; 
-			tryDirection = getRightDirectionForHome(axe, ghostX, ghostY);
-		}
-	}
-	
-	if (canMoveGhost(ghost, tryDirection) && (direction != tryDirection -2 && direction != tryDirection + 2)) { 
-		eval('GHOST_' + ghost.toUpperCase() + '_DIRECTION = tryDirection');
-	}
+function changeDirection(ghost) {
+    const ghostUpper = ghost.toUpperCase();
+        const ghostProperties = {
+        direction: window[`GHOST_${ghostUpper}_DIRECTION`],
+        state: window[`GHOST_${ghostUpper}_STATE`],
+        positionX: window[`GHOST_${ghostUpper}_POSITION_X`],
+        positionY: window[`GHOST_${ghostUpper}_POSITION_Y`]
+    };
+
+    var tryDirection = oneDirection();
+
+    if (ghostProperties.state === 0 || ghostProperties.state === 1) { 
+        if (ghostProperties.positionX !== 276 && ghostProperties.positionY !== 258) { 
+            var pacmanX = PACMAN_POSITION_X;
+            var pacmanY = PACMAN_POSITION_Y;
+            var axe = oneAxe();
+
+            if (ghost === "blinky") { 
+                var nothing = whatsYourProblem();
+                if (nothing < 6) { 
+                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
+                        axe++;
+                        if (axe > 2) axe = 1; 
+                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    }
+                }
+            } else if (ghost === "pinky") { 
+                var nothing = whatsYourProblem();
+                if (nothing < 3) { 
+                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
+                        axe++;
+                        if (axe > 2) axe = 1; 
+                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    }
+                    tryDirection = reverseDirection(tryDirection);
+                }
+            } else if (ghost === "inky") { 
+                var good = anyGoodIdea();
+                if (good < 3) { 
+                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
+                        axe++;
+                        if (axe > 2) axe = 1; 
+                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
+                    }
+                }
+            }
+        }
+        if (ghostProperties.state === 1) { 
+            tryDirection = reverseDirection(tryDirection);
+        }
+    } else { 
+        var axe = oneAxe();
+        tryDirection = getRightDirectionForHome(axe, ghostProperties.positionX, ghostProperties.positionY);
+        if (canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2)) { 
+        } else { 
+            axe++;
+            if (axe > 2) axe = 1; 
+            tryDirection = getRightDirectionForHome(axe, ghostProperties.positionX, ghostProperties.positionY);
+        }
+    }
+
+    if (canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2)) { 
+        window[`GHOST_${ghostUpper}_DIRECTION`] = tryDirection; 
+    }
 }
+
 
 function getRightDirectionForHome(axe, ghostX, ghostY) { 
 	var homeX = 276;
@@ -517,6 +508,8 @@ function eraseGhost(ghost) {
 	
 	eval('ctx.clearRect(GHOST_' + ghost.toUpperCase() + '_POSITION_X - 17, GHOST_' + ghost.toUpperCase() + '_POSITION_Y - 17, 34, 34)');
 }
+
+
 function eraseGhosts() { 
 
 	eraseGhost('blinky');
