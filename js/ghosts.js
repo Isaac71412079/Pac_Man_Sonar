@@ -546,10 +546,10 @@ function canMoveGhost(ghost, direction) {
     return false;
 }
 
-
-function oneDirection() { 
-	return Math.floor( Math.random() * ( 4 - 1 + 1 ) + 1 );
+function oneDirection() {
+    return Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xFFFFFFFF + 1) * 4) + 1;
 }
+
 function oneDirectionX() { 
 	var direction = oneDirection();
 	if (direction === 4 || direction === 2) direction -= 1;
