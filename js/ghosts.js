@@ -502,13 +502,12 @@ function reverseDirection(direction) {
 	else return direction + 2;
 }
 
-function eraseGhost(ghost) { 
-
-	var ctx = getGhostCanevasContext(ghost);
-	
-	eval('ctx.clearRect(GHOST_' + ghost.toUpperCase() + '_POSITION_X - 17, GHOST_' + ghost.toUpperCase() + '_POSITION_Y - 17, 34, 34)');
+function eraseGhost(ghost) {
+    var ctx = getGhostCanevasContext(ghost);
+    var positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
+    var positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
+    ctx.clearRect(positionX - 17, positionY - 17, 34, 34);
 }
-
 
 function eraseGhosts() { 
 
@@ -518,42 +517,35 @@ function eraseGhosts() {
 	eraseGhost('clyde');
 }
 
-function canMoveGhost(ghost, direction) { 
-	if (!direction) { 
-		eval('var direction = GHOST_' + ghost.toUpperCase() + '_DIRECTION');
-	}
-	eval('var positionX = GHOST_' + ghost.toUpperCase() + '_POSITION_X');
-	eval('var positionY = GHOST_' + ghost.toUpperCase() + '_POSITION_Y');
-	eval('var state = GHOST_' + ghost.toUpperCase() + '_STATE');
-	
-	if (positionX === 276 && positionY === 204 && direction === 2 && state === 0) return false;
+function canMoveGhost(ghost, direction) {
+    if (!direction) {
+        direction = window[`GHOST_${ghost.toUpperCase()}_DIRECTION`];
+    }
+    var positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
+    var positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
+    var state = window[`GHOST_${ghost.toUpperCase()}_STATE`];
 
-	if ( direction === 1 ) { 
-		positionX += GHOST_POSITION_STEP;
-	} else if ( direction === 2 ) { 
-		positionY += GHOST_POSITION_STEP;
-	} else if ( direction === 3 ) { 
-		positionX -= GHOST_POSITION_STEP;
-	} else if ( direction === 4 ) { 
-		positionY -= GHOST_POSITION_STEP;
-	}
-	
-	for (var i = 0, imax = PATHS.length; i < imax; i ++) { 
-	
-		var p = PATHS[i];
-	
-		var startX = p.split("-")[0].split(",")[0];
-		var startY = p.split("-")[0].split(",")[1];
-		var endX = p.split("-")[1].split(",")[0];
-		var endY = p.split("-")[1].split(",")[1];
+    if (positionX === 276 && positionY === 204 && direction === 2 && state === 0) return false;
 
-		if (positionX >= startX && positionX <= endX && positionY >= startY && positionY <= endY) { 
-			return true;
-		}
-	}
-	
-	return false;
+    switch (direction) {
+        case 1: positionX += GHOST_POSITION_STEP; break;
+        case 2: positionY += GHOST_POSITION_STEP; break;
+        case 3: positionX -= GHOST_POSITION_STEP; break;
+        case 4: positionY -= GHOST_POSITION_STEP; break;
+    }
+
+    for (var i = 0, imax = PATHS.length; i < imax; i++) {
+        var p = PATHS[i].split("-");
+        var [startX, startY] = p[0].split(",");
+        var [endX, endY] = p[1].split(",");
+
+        if (positionX >= startX && positionX <= endX && positionY >= startY && positionY <= endY) {
+            return true;
+        }
+    }
+    return false;
 }
+
 
 function oneDirection() { 
 	return Math.floor( Math.random() * ( 4 - 1 + 1 ) + 1 );
@@ -569,24 +561,30 @@ function oneDirectionY() {
 	return direction;
 }
 
-function stopGhost(ghost) { 
+function stopGhost(ghost) {
+    var ghostUpper = ghost.toUpperCase();
+    var state = window[`GHOST_${ghostUpper}_STATE`];
 
-	if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === 1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER.cancel()');
-		eval('GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER = null');
-		eval('GHOST_' + ghost.toUpperCase() + '_STATE = 0');
-	} else if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === -1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_EAT_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_EAT_TIMER.cancel()');
-		eval('GHOST_' + ghost.toUpperCase() + '_EAT_TIMER = null');
-		eval('GHOST_' + ghost.toUpperCase() + '_STATE = 0');
-	}
+    if (state === 1) {
+        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        if (afraidTimer !== null) afraidTimer.cancel();
+        window[`GHOST_${ghostUpper}_AFFRAID_TIMER`] = null;
+        window[`GHOST_${ghostUpper}_STATE`] = 0;
+    } else if (state === -1) {
+        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        if (eatTimer !== null) eatTimer.cancel();
+        window[`GHOST_${ghostUpper}_EAT_TIMER`] = null;
+        window[`GHOST_${ghostUpper}_STATE`] = 0;
+    }
 
-	if ( eval('GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER != -1') ) { 
-		eval('clearInterval(GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER)');
-		eval('GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER = -1');
-		eval('GHOST_' + ghost.toUpperCase() + '_MOVING = false');
-	}
+    var movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
+    if (movingTimer != -1) {
+        clearInterval(movingTimer);
+        window[`GHOST_${ghostUpper}_MOVING_TIMER`] = -1;
+        window[`GHOST_${ghostUpper}_MOVING`] = false;
+    }
 }
+
 function stopGhosts() { 
 	stopGhost('blinky');
 	stopGhost('pinky');
@@ -594,19 +592,26 @@ function stopGhosts() {
 	stopGhost('clyde');
 }
 
-function pauseGhost(ghost) { 
-	if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === 1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER.pause()');
-	} else if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === -1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_EAT_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_EAT_TIMER.pause()');
-	}
-	
-	if ( eval('GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER != -1') ) { 
-		eval('clearInterval(GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER)');
-		eval('GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER = -1');
-		eval('GHOST_' + ghost.toUpperCase() + '_MOVING = false');
-	}
+function pauseGhost(ghost) {
+    var ghostUpper = ghost.toUpperCase();
+    var state = window[`GHOST_${ghostUpper}_STATE`];
+
+    if (state === 1) {
+        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        if (afraidTimer !== null) afraidTimer.pause();
+    } else if (state === -1) {
+        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        if (eatTimer !== null) eatTimer.pause();
+    }
+
+    var movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
+    if (movingTimer != -1) {
+        clearInterval(movingTimer);
+        window[`GHOST_${ghostUpper}_MOVING_TIMER`] = -1;
+        window[`GHOST_${ghostUpper}_MOVING`] = false;
+    }
 }
+
 function pauseGhosts() { 
 	pauseGhost('blinky');
 	pauseGhost('pinky');
@@ -614,14 +619,21 @@ function pauseGhosts() {
 	pauseGhost('clyde');
 }
 
-function resumeGhost(ghost) { 
-	if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === 1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER.resume()');
-	} else if (eval('GHOST_' + ghost.toUpperCase() + '_STATE === -1')) { 
-		eval('if(GHOST_' + ghost.toUpperCase() + '_EAT_TIMER !== null) GHOST_' + ghost.toUpperCase() + '_EAT_TIMER.resume()');
-	}
-	moveGhost(ghost);
+function resumeGhost(ghost) {
+    var ghostUpper = ghost.toUpperCase();
+    var state = window[`GHOST_${ghostUpper}_STATE`];
+
+    if (state === 1) {
+        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        if (afraidTimer !== null) afraidTimer.resume();
+    } else if (state === -1) {
+        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        if (eatTimer !== null) eatTimer.resume();
+    }
+
+    moveGhost(ghost);
 }
+
 function resumeGhosts() { 
 	resumeGhost('blinky');
 	resumeGhost('pinky');
