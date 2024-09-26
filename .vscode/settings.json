@@ -2,5 +2,6 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "http://localhost:9000",
         "projectKey": "Pac_Man_Sonar"
-    }
+    },
+    "liveServer.settings.port": 5501
 }
