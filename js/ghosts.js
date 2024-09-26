@@ -1,69 +1,69 @@
-var GHOST_BLINKY_CANVAS_CONTEXT = null;
-var GHOST_BLINKY_POSITION_X = 276;
-var GHOST_BLINKY_POSITION_Y = 204;
-var GHOST_BLINKY_DIRECTION = 1;
-var GHOST_BLINKY_COLOR = "#ed1b24";
-var GHOST_BLINKY_MOVING_TIMER = -1;
-var GHOST_BLINKY_MOVING = false;
-var GHOST_BLINKY_BODY_STATE = 0;
-var GHOST_BLINKY_STATE = 0;
-var GHOST_BLINKY_EAT_TIMER = null;
-var GHOST_BLINKY_AFFRAID_TIMER = null;
-var GHOST_BLINKY_AFFRAID_STATE = 0;
-var GHOST_BLINKY_TUNNEL = false;
+let GHOST_BLINKY_CANVAS_CONTEXT = null;
+let GHOST_BLINKY_POSITION_X = 276;
+let GHOST_BLINKY_POSITION_Y = 204;
+let GHOST_BLINKY_DIRECTION = 1;
+const GHOST_BLINKY_COLOR = "#ed1b24";
+let GHOST_BLINKY_MOVING_TIMER = -1;
+let GHOST_BLINKY_MOVING = false;
+let GHOST_BLINKY_BODY_STATE = 0;
+let GHOST_BLINKY_STATE = 0;
+let GHOST_BLINKY_EAT_TIMER = null;
+let GHOST_BLINKY_AFFRAID_TIMER = null;
+let GHOST_BLINKY_AFFRAID_STATE = 0;
+let GHOST_BLINKY_TUNNEL = false;
 
-var GHOST_PINKY_CANVAS_CONTEXT = null;
-var GHOST_PINKY_POSITION_X = 276;
-var GHOST_PINKY_POSITION_Y = 258;
-var GHOST_PINKY_DIRECTION = 2;
-var GHOST_PINKY_COLOR = "#feaec9";
-var GHOST_PINKY_MOVING_TIMER = -1;
-var GHOST_PINKY_MOVING = false;
-var GHOST_PINKY_BODY_STATE = 1;
-var GHOST_PINKY_STATE = 0;
-var GHOST_PINKY_EAT_TIMER = null;
-var GHOST_PINKY_AFFRAID_TIMER = null;
-var GHOST_PINKY_AFFRAID_STATE = 0;
-var GHOST_PINKY_TUNNEL = false;
+let GHOST_PINKY_CANVAS_CONTEXT = null;
+let GHOST_PINKY_POSITION_X = 276;
+let GHOST_PINKY_POSITION_Y = 258;
+let GHOST_PINKY_DIRECTION = 2;
+const GHOST_PINKY_COLOR = "#feaec9";
+let GHOST_PINKY_MOVING_TIMER = -1;
+let GHOST_PINKY_MOVING = false;
+let GHOST_PINKY_BODY_STATE = 1;
+let GHOST_PINKY_STATE = 0;
+let GHOST_PINKY_EAT_TIMER = null;
+let GHOST_PINKY_AFFRAID_TIMER = null;
+let GHOST_PINKY_AFFRAID_STATE = 0;
+let GHOST_PINKY_TUNNEL = false;
 
-var GHOST_INKY_CANVAS_CONTEXT = null;
-var GHOST_INKY_POSITION_X = 238;
-var GHOST_INKY_POSITION_Y = 258;
-var GHOST_INKY_DIRECTION = 3;
-var GHOST_INKY_COLOR = "#4adecb";
-var GHOST_INKY_MOVING_TIMER = -1;
-var GHOST_INKY_MOVING = false;
-var GHOST_INKY_BODY_STATE = 2;
-var GHOST_INKY_STATE = 0;
-var GHOST_INKY_EAT_TIMER = null;
-var GHOST_INKY_AFFRAID_TIMER = null;
-var GHOST_INKY_AFFRAID_STATE = 0;
-var GHOST_INKY_TUNNEL = false;
+let GHOST_INKY_CANVAS_CONTEXT = null;
+let GHOST_INKY_POSITION_X = 238;
+let GHOST_INKY_POSITION_Y = 258;
+let GHOST_INKY_DIRECTION = 3;
+const GHOST_INKY_COLOR = "#4adecb";
+let GHOST_INKY_MOVING_TIMER = -1;
+let GHOST_INKY_MOVING = false;
+let GHOST_INKY_BODY_STATE = 2;
+let GHOST_INKY_STATE = 0;
+let GHOST_INKY_EAT_TIMER = null;
+let GHOST_INKY_AFFRAID_TIMER = null;
+let GHOST_INKY_AFFRAID_STATE = 0;
+let GHOST_INKY_TUNNEL = false;
 
-var GHOST_CLYDE_CANVAS_CONTEXT = null;
-var GHOST_CLYDE_POSITION_X = 314;
-var GHOST_CLYDE_POSITION_Y = 258;
-var GHOST_CLYDE_DIRECTION = 4;
-var GHOST_CLYDE_COLOR = "#f99c00";
-var GHOST_CLYDE_MOVING_TIMER = -1;
-var GHOST_CLYDE_MOVING = false;
-var GHOST_CLYDE_BODY_STATE = 3;
-var GHOST_CLYDE_STATE = 0;
-var GHOST_CLYDE_EAT_TIMER = null;
-var GHOST_CLYDE_AFFRAID_TIMER = null;
-var GHOST_CLYDE_AFFRAID_STATE = 0;
-var GHOST_CLYDE_TUNNEL = false;
+let GHOST_CLYDE_CANVAS_CONTEXT = null;
+let GHOST_CLYDE_POSITION_X = 314;
+let GHOST_CLYDE_POSITION_Y = 258;
+let GHOST_CLYDE_DIRECTION = 4;
+const GHOST_CLYDE_COLOR = "#f99c00";
+let GHOST_CLYDE_MOVING_TIMER = -1;
+let GHOST_CLYDE_MOVING = false;
+let GHOST_CLYDE_BODY_STATE = 3;
+let GHOST_CLYDE_STATE = 0;
+let GHOST_CLYDE_EAT_TIMER = null;
+let GHOST_CLYDE_AFFRAID_TIMER = null;
+let GHOST_CLYDE_AFFRAID_STATE = 0;
+let GHOST_CLYDE_TUNNEL = false;
 
-var GHOST_AFFRAID_COLOR = "#2d3eff";
-var GHOST_AFFRAID_FINISH_COLOR = "#fff";
-var GHOST_POSITION_STEP = 2;
-var GHOST_MOVING_SPEED = 15;
-var GHOST_TUNNEL_MOVING_SPEED = 35;
-var GHOST_AFFRAID_MOVING_SPEED = 40;
-var GHOST_EAT_MOVING_SPEED = 6;
-var GHOST_AFFRAID_TIME = 8500;
-var GHOST_EAT_TIME = 5500;
-var GHOST_BODY_STATE_MAX = 6;
+const GHOST_AFFRAID_COLOR = "#2d3eff";
+const GHOST_AFFRAID_FINISH_COLOR = "#fff";
+const GHOST_POSITION_STEP = 2;
+const GHOST_MOVING_SPEED = 15;
+const GHOST_TUNNEL_MOVING_SPEED = 35;
+const GHOST_AFFRAID_MOVING_SPEED = 40;
+const GHOST_EAT_MOVING_SPEED = 6;
+const GHOST_AFFRAID_TIME = 8500;
+const GHOST_EAT_TIME = 5500;
+const GHOST_BODY_STATE_MAX = 6;
 
 function initGhosts() { 
 	initGhost('blinky');
@@ -72,7 +72,7 @@ function initGhosts() {
 	initGhost('clyde');
 }
 
-var ghostCanvasContexts = {
+let ghostCanvasContexts = {
     blinky: null,
     pinky: null,
     inky: null,
@@ -80,7 +80,7 @@ var ghostCanvasContexts = {
 };
 
 function initGhost(ghost) { 
-    var canvas = document.getElementById('canvas-ghost-' + ghost);
+    const canvas = document.getElementById('canvas-ghost-' + ghost);
     canvas.setAttribute('width', '550');
     canvas.setAttribute('height', '550');
     if (canvas.getContext) { 
@@ -149,11 +149,11 @@ function drawGhosts() {
 
 function drawGhost(ghost) { 
 
-	var ctx = getGhostCanevasContext(ghost);
+	const ctx = getGhostCanevasContext(ghost);
 
-	var ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
-    var ghostColor = window['GHOST_' + ghost.toUpperCase() + '_COLOR'];
-    var ghostAffraidState = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'];
+	const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    const ghostColor = window['GHOST_' + ghost.toUpperCase() + '_COLOR'];
+    const ghostAffraidState = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'];
 
 	if (ghostState === 0) {
         ctx.fillStyle = ghostColor;
@@ -161,10 +161,10 @@ function drawGhost(ghost) {
         ctx.fillStyle = (ghostAffraidState === 1) ? GHOST_AFFRAID_FINISH_COLOR : GHOST_AFFRAID_COLOR;
     }
 
-	var positionX = window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'];
-    var positionY = window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'];
-    var direction = window['GHOST_' + ghost.toUpperCase() + '_DIRECTION'];
-    var bodyState = window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE'];
+	let positionX = window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'];
+    let positionY = window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'];
+    let direction = window['GHOST_' + ghost.toUpperCase() + '_DIRECTION'];
+    let bodyState = window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE'];
 
 	drawHelperGhost(ctx, positionX, positionY, direction, bodyState, ghostState, ghostAffraidState);
 
@@ -186,7 +186,7 @@ function affraidGhosts() {
 }
 
 function affraidGhost(ghost) { 
-    var affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
+    const affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
     
     if (affraidTimer !== null) { 
         affraidTimer.cancel();
@@ -194,7 +194,7 @@ function affraidGhost(ghost) {
     }
     window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'] = 0;
 
-    var ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
     if (ghostState === 0 || ghostState === 1) {
         stopGhost(ghost);
         window['GHOST_' + ghost.toUpperCase() + '_STATE'] = 1;
@@ -204,8 +204,8 @@ function affraidGhost(ghost) {
 }
 
 function cancelAffraidGhost(ghost) { 
-    var ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
-    var affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
+    const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    const affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
     
     if (ghostState === 1) { 
         if (affraidTimer !== null) {
@@ -397,16 +397,16 @@ function changeDirection(ghost) {
         positionY: window[`GHOST_${ghostUpper}_POSITION_Y`]
     };
 
-    var tryDirection = oneDirection();
+    let tryDirection = oneDirection();
 
     if (ghostProperties.state === 0 || ghostProperties.state === 1) { 
         if (ghostProperties.positionX !== 276 && ghostProperties.positionY !== 258) { 
-            var pacmanX = PACMAN_POSITION_X;
-            var pacmanY = PACMAN_POSITION_Y;
-            var axe = oneAxe();
+            let pacmanX = PACMAN_POSITION_X;
+            let pacmanY = PACMAN_POSITION_Y;
+            let axe = oneAxe();
 
             if (ghost === "blinky") { 
-                var nothing = whatsYourProblem();
+                let nothing = whatsYourProblem();
                 if (nothing < 6) { 
                     tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
                     if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
@@ -416,7 +416,7 @@ function changeDirection(ghost) {
                     }
                 }
             } else if (ghost === "pinky") { 
-                var nothing = whatsYourProblem();
+                let nothing = whatsYourProblem();
                 if (nothing < 3) { 
                     tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
                     if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
@@ -427,7 +427,7 @@ function changeDirection(ghost) {
                     tryDirection = reverseDirection(tryDirection);
                 }
             } else if (ghost === "inky") { 
-                var good = anyGoodIdea();
+                let good = anyGoodIdea();
                 if (good < 3) { 
                     tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
                     if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
@@ -442,7 +442,7 @@ function changeDirection(ghost) {
             tryDirection = reverseDirection(tryDirection);
         }
     } else { 
-        var axe = oneAxe();
+        let axe = oneAxe();
         tryDirection = getRightDirectionForHome(axe, ghostProperties.positionX, ghostProperties.positionY);
         if (canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2)) { 
         } else { 
@@ -459,8 +459,8 @@ function changeDirection(ghost) {
 
 
 function getRightDirectionForHome(axe, ghostX, ghostY) { 
-	var homeX = 276;
-	var homeY = 204;
+	let homeX = 276;
+	let homeY = 204;
 	
 	if (ghostY === 204 && ghostX === 276) { 	
 		return 2;
@@ -503,9 +503,9 @@ function reverseDirection(direction) {
 }
 
 function eraseGhost(ghost) {
-    var ctx = getGhostCanevasContext(ghost);
-    var positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
-    var positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
+    let ctx = getGhostCanevasContext(ghost);
+    let positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
+    let positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
     ctx.clearRect(positionX - 17, positionY - 17, 34, 34);
 }
 
@@ -521,9 +521,9 @@ function canMoveGhost(ghost, direction) {
     if (!direction) {
         direction = window[`GHOST_${ghost.toUpperCase()}_DIRECTION`];
     }
-    var positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
-    var positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
-    var state = window[`GHOST_${ghost.toUpperCase()}_STATE`];
+    let positionX = window[`GHOST_${ghost.toUpperCase()}_POSITION_X`];
+    let positionY = window[`GHOST_${ghost.toUpperCase()}_POSITION_Y`];
+    let state = window[`GHOST_${ghost.toUpperCase()}_STATE`];
 
     if (positionX === 276 && positionY === 204 && direction === 2 && state === 0) return false;
 
@@ -534,10 +534,10 @@ function canMoveGhost(ghost, direction) {
         case 4: positionY -= GHOST_POSITION_STEP; break;
     }
 
-    for (var i = 0, imax = PATHS.length; i < imax; i++) {
-        var p = PATHS[i].split("-");
-        var [startX, startY] = p[0].split(",");
-        var [endX, endY] = p[1].split(",");
+    for (let i = 0, imax = PATHS.length; i < imax; i++) {
+        let p = PATHS[i].split("-");
+        let [startX, startY] = p[0].split(",");
+        let [endX, endY] = p[1].split(",");
 
         if (positionX >= startX && positionX <= endX && positionY >= startY && positionY <= endY) {
             return true;
@@ -551,33 +551,33 @@ function oneDirection() {
 }
 
 function oneDirectionX() { 
-	var direction = oneDirection();
+	let direction = oneDirection();
 	if (direction === 4 || direction === 2) direction -= 1;
 	return direction;
 }
 function oneDirectionY() { 
-	var direction = oneDirection();
+	let direction = oneDirection();
 	if (direction === 3 || direction === 1) direction -= 1;
 	return direction;
 }
 
 function stopGhost(ghost) {
-    var ghostUpper = ghost.toUpperCase();
-    var state = window[`GHOST_${ghostUpper}_STATE`];
+    let ghostUpper = ghost.toUpperCase();
+    let state = window[`GHOST_${ghostUpper}_STATE`];
 
     if (state === 1) {
-        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        let afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
         if (afraidTimer !== null) afraidTimer.cancel();
         window[`GHOST_${ghostUpper}_AFFRAID_TIMER`] = null;
         window[`GHOST_${ghostUpper}_STATE`] = 0;
     } else if (state === -1) {
-        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        let eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
         if (eatTimer !== null) eatTimer.cancel();
         window[`GHOST_${ghostUpper}_EAT_TIMER`] = null;
         window[`GHOST_${ghostUpper}_STATE`] = 0;
     }
 
-    var movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
+    let movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
     if (movingTimer != -1) {
         clearInterval(movingTimer);
         window[`GHOST_${ghostUpper}_MOVING_TIMER`] = -1;
@@ -593,18 +593,18 @@ function stopGhosts() {
 }
 
 function pauseGhost(ghost) {
-    var ghostUpper = ghost.toUpperCase();
-    var state = window[`GHOST_${ghostUpper}_STATE`];
+    let ghostUpper = ghost.toUpperCase();
+    let state = window[`GHOST_${ghostUpper}_STATE`];
 
     if (state === 1) {
-        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        let afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
         if (afraidTimer !== null) afraidTimer.pause();
     } else if (state === -1) {
-        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        let eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
         if (eatTimer !== null) eatTimer.pause();
     }
 
-    var movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
+    let movingTimer = window[`GHOST_${ghostUpper}_MOVING_TIMER`];
     if (movingTimer != -1) {
         clearInterval(movingTimer);
         window[`GHOST_${ghostUpper}_MOVING_TIMER`] = -1;
@@ -620,14 +620,14 @@ function pauseGhosts() {
 }
 
 function resumeGhost(ghost) {
-    var ghostUpper = ghost.toUpperCase();
-    var state = window[`GHOST_${ghostUpper}_STATE`];
+    let ghostUpper = ghost.toUpperCase();
+    let state = window[`GHOST_${ghostUpper}_STATE`];
 
     if (state === 1) {
-        var afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+        let afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
         if (afraidTimer !== null) afraidTimer.resume();
     } else if (state === -1) {
-        var eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
+        let eatTimer = window[`GHOST_${ghostUpper}_EAT_TIMER`];
         if (eatTimer !== null) eatTimer.resume();
     }
 
@@ -669,8 +669,8 @@ function drawHelperGhost(ctx, x, y, d, b, s, a) {
 		ctx.fill();
 	}
 
-	var eyesX = 0;
-	var eyesY = 0;
+	let eyesX = 0;
+	let eyesY = 0;
 	
 	if (d === 4) { 
 		eyesY = -5;
