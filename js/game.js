@@ -1,28 +1,28 @@
-var KEYDOWN = false;
-var PAUSE = false;
-var LOCK = false;
+let KEYDOWN = false;
+let PAUSE = false;
+let LOCK = false;
 
-var HIGHSCORE = 0;
-var SCORE = 0;
-var SCORE_BUBBLE = 10;
-var SCORE_SUPER_BUBBLE = 50;
-var SCORE_GHOST_COMBO = 200;
+let HIGHSCORE = 0;
+let SCORE = 0;
+let SCORE_BUBBLE = 10;
+let SCORE_SUPER_BUBBLE = 50;
+let SCORE_GHOST_COMBO = 200;
 
-var LIFES = 2;
-var GAMEOVER = false;
+let LIFES = 2;
+let GAMEOVER = false;
 
-var LEVEL = 1;
-var LEVEL_NEXT_TIMER = -1;
-var LEVEL_NEXT_STATE = 0;
+let LEVEL = 1;
+let LEVEL_NEXT_TIMER = -1;
+let LEVEL_NEXT_STATE = 0;
 
-var TIME_GENERAL_TIMER = -1;
-var TIME_GAME = 0;
-var TIME_LEVEL = 0;
-var TIME_LIFE = 0;
-var TIME_FRUITS = 0;
+let TIME_GENERAL_TIMER = -1;
+let TIME_GAME = 0;
+let TIME_LEVEL = 0;
+let TIME_LIFE = 0;
+let TIME_FRUITS = 0;
 
-var HELP_DELAY = 1500;
-var HELP_TIMER = -1;
+let HELP_DELAY = 1500;
+let HELP_TIMER = -1;
 			
 function blinkHelp() { 
 	if ( $('.help-button').attr("class").indexOf("yo") > -1 ) { 
@@ -48,16 +48,16 @@ function initGame(newgame) {
 		$("#home").hide();
 		$("#panel").show();
 		
-		var ctx = null;
-		var canvas = document.getElementById('canvas-panel-title-pacman');
+		let ctx = null;
+		const canvas = document.getElementById('canvas-panel-title-pacman');
 		canvas.setAttribute('width', '38');
 		canvas.setAttribute('height', '32');
 		if (canvas.getContext) { 
 			ctx = canvas.getContext('2d');
 		}
 		
-		var x = 15;
-		var y = 16;
+		let x = 15;
+		let y = 16;
 		
 		ctx.fillStyle = "#fff200";
 		ctx.beginPath();
@@ -260,19 +260,19 @@ function lifes(l) {
 		LIFES += l;
 	}
 	
-	var canvas = document.getElementById('canvas-lifes');
+	const canvas = document.getElementById('canvas-lifes');
 	canvas.setAttribute('width', '120');
 	canvas.setAttribute('height', '30');
 	if (canvas.getContext) { 
-		var ctx = canvas.getContext('2d');
+		let ctx = canvas.getContext('2d');
 		
 		ctx.clearRect(0, 0, 120, 30);
 		ctx.fillStyle = "#fff200";
-		for (var i = 0, imax = LIFES; (i < imax && i < 4); i ++) { 
+		for (let i = 0, imax = LIFES; (i < imax && i < 4); i ++) { 
 			ctx.beginPath();
 			
-			var lineToX = 13;
-			var lineToY = 15;
+			let lineToX = 13;
+			let lineToY = 15;
 			
 			ctx.arc(lineToX + (i * 30), lineToY, 13, (1.35 - (3 * 0.05)) * Math.PI, (0.65 + (3 * 0.05)) * Math.PI, false);
 			ctx.lineTo(lineToX + (i * 30) + 4, lineToY);
@@ -313,7 +313,7 @@ function clearMessage() {
 }	
 
 function score(s, type) { 
-    var scoreBefore = (SCORE / 10000) | 0;
+    let scoreBefore = (SCORE / 10000) | 0;
     SCORE += s;
 
     if (SCORE === 0) { 
@@ -322,7 +322,7 @@ function score(s, type) {
         $('#score span').html(SCORE);
     }
 
-    var scoreAfter = (SCORE / 10000) | 0;
+    let scoreAfter = (SCORE / 10000) | 0;
     if (scoreAfter > scoreBefore) { 
         lifes(+1);
     }
@@ -342,8 +342,8 @@ function score(s, type) {
 
         $("#board").append('<span class="combo">' + SCORE_GHOST_COMBO + '</span>');
         
-        var ghostPositionY = window[`GHOST_${type.toUpperCase()}_POSITION_Y`];
-        var ghostPositionX = window[`GHOST_${type.toUpperCase()}_POSITION_X`];
+        let ghostPositionY = window[`GHOST_${type.toUpperCase()}_POSITION_Y`];
+        let ghostPositionX = window[`GHOST_${type.toUpperCase()}_POSITION_X`];
         
         $("#board span.combo").css('top', (ghostPositionY - 10) + 'px');
         $("#board span.combo").css('left', (ghostPositionX - 10) + 'px');
