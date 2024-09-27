@@ -2,5 +2,5 @@ projectKey=Pac_Man_Sonar
 serverUrl=http://localhost:9000
 serverVersion=10.6.0.92116
 dashboardUrl=http://localhost:9000/dashboard?id=Pac_Man_Sonar
-ceTaskId=fb9671c1-d315-4ce2-bd99-8dd408278d3f
-ceTaskUrl=http://localhost:9000/api/ce/task?id=fb9671c1-d315-4ce2-bd99-8dd408278d3f
+ceTaskId=b9e0da84-4846-4053-b2ab-3250d43d431b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b9e0da84-4846-4053-b2ab-3250d43d431b

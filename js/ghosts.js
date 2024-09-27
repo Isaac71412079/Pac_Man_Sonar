@@ -1,69 +1,69 @@
 let GHOST_BLINKY_CANVAS_CONTEXT = null;
-let GHOST_BLINKY_POSITION_X = 276;
-let GHOST_BLINKY_POSITION_Y = 204;
-let GHOST_BLINKY_DIRECTION = 1;
-const GHOST_BLINKY_COLOR = "#ed1b24";
-let GHOST_BLINKY_MOVING_TIMER = -1;
-let GHOST_BLINKY_MOVING = false;
-let GHOST_BLINKY_BODY_STATE = 0;
-let GHOST_BLINKY_STATE = 0;
-let GHOST_BLINKY_EAT_TIMER = null;
-let GHOST_BLINKY_AFFRAID_TIMER = null;
-let GHOST_BLINKY_AFFRAID_STATE = 0;
-let GHOST_BLINKY_TUNNEL = false;
+var GHOST_BLINKY_POSITION_X = 276;
+var GHOST_BLINKY_POSITION_Y = 204;
+var GHOST_BLINKY_DIRECTION = 1;
+var GHOST_BLINKY_COLOR = "#ed1b24";
+var GHOST_BLINKY_MOVING_TIMER = -1;
+var GHOST_BLINKY_MOVING = false;
+var GHOST_BLINKY_BODY_STATE = 0;
+var GHOST_BLINKY_STATE = 0;
+var GHOST_BLINKY_EAT_TIMER = null;
+var GHOST_BLINKY_AFFRAID_TIMER = null;
+var GHOST_BLINKY_AFFRAID_STATE = 0;
+var GHOST_BLINKY_TUNNEL = false;
 
 let GHOST_PINKY_CANVAS_CONTEXT = null;
-let GHOST_PINKY_POSITION_X = 276;
-let GHOST_PINKY_POSITION_Y = 258;
-let GHOST_PINKY_DIRECTION = 2;
-const GHOST_PINKY_COLOR = "#feaec9";
-let GHOST_PINKY_MOVING_TIMER = -1;
-let GHOST_PINKY_MOVING = false;
-let GHOST_PINKY_BODY_STATE = 1;
-let GHOST_PINKY_STATE = 0;
-let GHOST_PINKY_EAT_TIMER = null;
-let GHOST_PINKY_AFFRAID_TIMER = null;
-let GHOST_PINKY_AFFRAID_STATE = 0;
-let GHOST_PINKY_TUNNEL = false;
+var GHOST_PINKY_POSITION_X = 276;
+var GHOST_PINKY_POSITION_Y = 258;
+var GHOST_PINKY_DIRECTION = 2;
+var GHOST_PINKY_COLOR = "#feaec9";
+var GHOST_PINKY_MOVING_TIMER = -1;
+var GHOST_PINKY_MOVING = false;
+var GHOST_PINKY_BODY_STATE = 1;
+var GHOST_PINKY_STATE = 0;
+var GHOST_PINKY_EAT_TIMER = null;
+var GHOST_PINKY_AFFRAID_TIMER = null;
+var GHOST_PINKY_AFFRAID_STATE = 0;
+var GHOST_PINKY_TUNNEL = false;
 
 let GHOST_INKY_CANVAS_CONTEXT = null;
-let GHOST_INKY_POSITION_X = 238;
-let GHOST_INKY_POSITION_Y = 258;
-let GHOST_INKY_DIRECTION = 3;
-const GHOST_INKY_COLOR = "#4adecb";
-let GHOST_INKY_MOVING_TIMER = -1;
-let GHOST_INKY_MOVING = false;
-let GHOST_INKY_BODY_STATE = 2;
-let GHOST_INKY_STATE = 0;
-let GHOST_INKY_EAT_TIMER = null;
-let GHOST_INKY_AFFRAID_TIMER = null;
-let GHOST_INKY_AFFRAID_STATE = 0;
-let GHOST_INKY_TUNNEL = false;
+var GHOST_INKY_POSITION_X = 238;
+var GHOST_INKY_POSITION_Y = 258;
+var GHOST_INKY_DIRECTION = 3;
+var GHOST_INKY_COLOR = "#4adecb";
+var GHOST_INKY_MOVING_TIMER = -1;
+var GHOST_INKY_MOVING = false;
+var GHOST_INKY_BODY_STATE = 2;
+var GHOST_INKY_STATE = 0;
+var GHOST_INKY_EAT_TIMER = null;
+var GHOST_INKY_AFFRAID_TIMER = null;
+var GHOST_INKY_AFFRAID_STATE = 0;
+var GHOST_INKY_TUNNEL = false;
 
 let GHOST_CLYDE_CANVAS_CONTEXT = null;
-let GHOST_CLYDE_POSITION_X = 314;
-let GHOST_CLYDE_POSITION_Y = 258;
-let GHOST_CLYDE_DIRECTION = 4;
-const GHOST_CLYDE_COLOR = "#f99c00";
-let GHOST_CLYDE_MOVING_TIMER = -1;
-let GHOST_CLYDE_MOVING = false;
-let GHOST_CLYDE_BODY_STATE = 3;
-let GHOST_CLYDE_STATE = 0;
-let GHOST_CLYDE_EAT_TIMER = null;
-let GHOST_CLYDE_AFFRAID_TIMER = null;
-let GHOST_CLYDE_AFFRAID_STATE = 0;
-let GHOST_CLYDE_TUNNEL = false;
+var GHOST_CLYDE_POSITION_X = 314;
+var GHOST_CLYDE_POSITION_Y = 258;
+var GHOST_CLYDE_DIRECTION = 4;
+var GHOST_CLYDE_COLOR = "#f99c00";
+var GHOST_CLYDE_MOVING_TIMER = -1;
+var GHOST_CLYDE_MOVING = false;
+var GHOST_CLYDE_BODY_STATE = 3;
+var GHOST_CLYDE_STATE = 0;
+var GHOST_CLYDE_EAT_TIMER = null;
+var GHOST_CLYDE_AFFRAID_TIMER = null;
+var GHOST_CLYDE_AFFRAID_STATE = 0;
+var GHOST_CLYDE_TUNNEL = false;
 
-const GHOST_AFFRAID_COLOR = "#2d3eff";
-const GHOST_AFFRAID_FINISH_COLOR = "#fff";
-const GHOST_POSITION_STEP = 2;
-const GHOST_MOVING_SPEED = 15;
-const GHOST_TUNNEL_MOVING_SPEED = 35;
-const GHOST_AFFRAID_MOVING_SPEED = 40;
-const GHOST_EAT_MOVING_SPEED = 6;
-const GHOST_AFFRAID_TIME = 8500;
-const GHOST_EAT_TIME = 5500;
-const GHOST_BODY_STATE_MAX = 6;
+var GHOST_AFFRAID_COLOR = "#2d3eff";
+var GHOST_AFFRAID_FINISH_COLOR = "#fff";
+var GHOST_POSITION_STEP = 2;
+var GHOST_MOVING_SPEED = 15;
+var GHOST_TUNNEL_MOVING_SPEED = 35;
+var GHOST_AFFRAID_MOVING_SPEED = 40;
+var GHOST_EAT_MOVING_SPEED = 6;
+var GHOST_AFFRAID_TIME = 8500;
+var GHOST_EAT_TIME = 5500;
+var GHOST_BODY_STATE_MAX = 6;
 
 function initGhosts() { 
 	initGhost('blinky');
@@ -80,7 +80,7 @@ let ghostCanvasContexts = {
 };
 
 function initGhost(ghost) { 
-    const canvas = document.getElementById('canvas-ghost-' + ghost);
+    let canvas = document.getElementById('canvas-ghost-' + ghost);
     canvas.setAttribute('width', '550');
     canvas.setAttribute('height', '550');
     if (canvas.getContext) { 
@@ -149,11 +149,11 @@ function drawGhosts() {
 
 function drawGhost(ghost) { 
 
-	const ctx = getGhostCanevasContext(ghost);
+	let ctx = getGhostCanevasContext(ghost);
 
-	const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
-    const ghostColor = window['GHOST_' + ghost.toUpperCase() + '_COLOR'];
-    const ghostAffraidState = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'];
+	let ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    let ghostColor = window['GHOST_' + ghost.toUpperCase() + '_COLOR'];
+    let ghostAffraidState = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'];
 
 	if (ghostState === 0) {
         ctx.fillStyle = ghostColor;
@@ -186,7 +186,7 @@ function affraidGhosts() {
 }
 
 function affraidGhost(ghost) { 
-    const affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
+    let affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
     
     if (affraidTimer !== null) { 
         affraidTimer.cancel();
@@ -194,7 +194,7 @@ function affraidGhost(ghost) {
     }
     window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'] = 0;
 
-    const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    let ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
     if (ghostState === 0 || ghostState === 1) {
         stopGhost(ghost);
         window['GHOST_' + ghost.toUpperCase() + '_STATE'] = 1;
@@ -204,8 +204,8 @@ function affraidGhost(ghost) {
 }
 
 function cancelAffraidGhost(ghost) { 
-    const ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
-    const affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
+    let ghostState = window['GHOST_' + ghost.toUpperCase() + '_STATE'];
+    let affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
     
     if (ghostState === 1) { 
         if (affraidTimer !== null) {
