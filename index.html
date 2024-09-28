@@ -162,23 +162,24 @@ function handlePacmanReset() {
 function handleKeyPress(e) {
     if (HOME) {
         initGame(true);
-    } else {
-       	KEYDOWN = true;
-        if (PACMAN_DEAD && !LOCK) {
-            handlePacmanReset();
-        } else if (e.keyCode >= 37 && e.keyCode <= 40 && !PAUSE && !PACMAN_DEAD && !LOCK) {
-            handlePacmanMovement(e.keyCode);
-        } else if (e.keyCode === 80 && !PACMAN_DEAD && !LOCK) {
-            handleGamePause();
-        } else if (GAMEOVER) {
-            initHome();
-        }
+        return; 
+    }
+    
+    
+    if (PACMAN_DEAD && !LOCK) {
+        handlePacmanReset();
+    } else if (e.keyCode >= 37 && e.keyCode <= 40 && !PAUSE && !PACMAN_DEAD && !LOCK) {
+        handlePacmanMovement(e.keyCode);
+    } else if (e.keyCode === 80 && !PACMAN_DEAD && !LOCK) {
+        handleGamePause();
+    } else if (GAMEOVER) {
+        initHome();
     }
 }
 
 $(document).ready(function () {
     $("body").keyup(function (e) {
-        KEYDOWN = false; 
+        /*//KEYDOWN = false; */
     });
 
     $("body").keydown(function (e) {
