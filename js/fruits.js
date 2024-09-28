@@ -12,84 +12,51 @@ let FRUIT = null;
 
 
 function initFruits() { 
-	const canvas = document.getElementById('canvas-fruits');
-	canvas.setAttribute('width', '550');
-	canvas.setAttribute('height', '550');
-	if (canvas.getContext) { 
-		FRUITS_CANVAS_CONTEXT = canvas.getContext('2d');
-	}
-	
-	const levelCanvas = document.getElementById('canvas-level-fruits');
-	levelCanvas.setAttribute('width', '265');
-	levelCanvas.setAttribute('height', '30');
-	if (levelCanvas.getContext) { 
-		LEVEL_FRUITS_CANVAS_CONTEXT = levelCanvas.getContext('2d');
-	}
-	
-	const ctx = getLevelFruitsCanevasContext();
-	ctx.clearRect(0, 0, 265, 30);
-	
-	let x = 245;
-	let y = 14;
-	let i = 0;
-	
-	if (LEVEL > 7) { 
-		let l = LEVEL
-		if (l > 13) l = 13;
-		i = -(l - 7);
-	}
-	
-	drawFruit(ctx, "cherry", x - ( i * 37), y, 27);
-	i ++;
-	
-	if (LEVEL > 1) { 
-		drawFruit(ctx, "strawberry", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 2) { 
-		drawFruit(ctx, "orange", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 3) { 
-		drawFruit(ctx, "orange", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 4) { 
-		drawFruit(ctx, "apple", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 5) { 
-		drawFruit(ctx, "apple", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 6) { 
-		drawFruit(ctx, "melon", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 7) { 
-		drawFruit(ctx, "melon", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 8) { 
-		drawFruit(ctx, "galboss", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 9) { 
-		drawFruit(ctx, "galboss", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 10) { 
-		drawFruit(ctx, "bell", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 11) { 
-		drawFruit(ctx, "bell", x - ( i * 37), y, 27);
-		i ++;
-	}
-	if (LEVEL > 12) { 
-		drawFruit(ctx, "key", x - ( i * 37), y, 27);
-		i ++;
-	}
+    const canvas = document.getElementById('canvas-fruits');
+    canvas.setAttribute('width', '550');
+    canvas.setAttribute('height', '550');
+    if (canvas.getContext) { 
+        FRUITS_CANVAS_CONTEXT = canvas.getContext('2d');
+    }
+    
+    const levelCanvas = document.getElementById('canvas-level-fruits');
+    levelCanvas.setAttribute('width', '265');
+    levelCanvas.setAttribute('height', '30');
+    if (levelCanvas.getContext) { 
+        LEVEL_FRUITS_CANVAS_CONTEXT = levelCanvas.getContext('2d');
+    }
+    
+    const ctx = getLevelFruitsCanevasContext();
+    ctx.clearRect(0, 0, 265, 30);
+
+    let x = 245;
+    let y = 14;
+    let i = 0;
+    
+    // Ajusta el valor de i en función del nivel
+    if (LEVEL > 7) { 
+        let l = Math.min(LEVEL, 13);
+        i = -(l - 7);
+    }
+
+    // Define un array con las frutas a dibujar para cada nivel
+    const fruitsByLevel = [
+        "cherry",     // LEVEL 1
+        "strawberry", // LEVEL 2
+        "orange",     // LEVEL 3, 4
+        "apple",      // LEVEL 5, 6
+        "melon",      // LEVEL 7, 8
+        "galboss",    // LEVEL 9, 10
+        "bell",       // LEVEL 11, 12
+        "key"         // LEVEL 13
+    ];
+
+    // Dibuja las frutas según el nivel
+    for (let lvl = 1; lvl <= Math.min(LEVEL, 13); lvl++) {
+        const fruit = fruitsByLevel[Math.floor((lvl - 1) / 2)];
+        drawFruit(ctx, fruit, x - (i * 37), y, 27);
+        i++;
+    }
 }
 
 function getFruitsCanevasContext() { 
