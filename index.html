@@ -126,48 +126,66 @@
 					let KEYDOWN = false;
 				});
 				
-				$("body").keydown(function(e) { 
-				
-					if(HOME){ 
-						initGame(true);
-					}else{
-							KEYDOWN = true;
-							if(PACMAN_DEAD && !LOCK){ 
-								erasePacman();
-								resetPacman();
-								drawPacman();
-								
-								eraseGhosts();
-								resetGhosts();
-								drawGhosts();
-								moveGhosts();
-								
-								blinkSuperBubbles();
-								
-							}else if (e.keyCode >= 37 && e.keyCode <= 40 && !PAUSE && !PACMAN_DEAD && !LOCK) { 
-								if ( e.keyCode === 39 ) { 
-									movePacman(1);
-								} else if ( e.keyCode === 40 ) { 
-									movePacman(2);
-								} else if ( e.keyCode === 37 ) { 
-									movePacman(3);
-								} else if ( e.keyCode === 38 ) { 
-									movePacman(4);
-								}
-							} else if (e.keyCode === 68 && !PAUSE) { 
-								//
-							} else if (e.keyCode === 80 && !PACMAN_DEAD && !LOCK) { 
-								if (PAUSE) { 
-									resumeGame();
-								} else { 
-									pauseGame();
-								}
-							} else if (GAMEOVER) { 
-								initHome();
-							}
-						//}
-					}
-				});
+				function handlePacmanMovement(keyCode) {
+    				if (keyCode === 39) {
+       					 movePacman(1); // Derecha
+    				} else if (keyCode === 40) {
+        				movePacman(2); // Abajo
+   					} else if (keyCode === 37) {
+        				movePacman(3); // Izquierda
+    				} else if (keyCode === 38) {
+       					 movePacman(4); // Arriba
+    				}
+			}
+
+function handleGamePause() {
+    if (PAUSE) {
+        resumeGame();
+    } else {
+        pauseGame();
+    }
+}
+
+function handlePacmanReset() {
+    erasePacman();
+    resetPacman();
+    drawPacman();
+
+    eraseGhosts();
+    resetGhosts();
+    drawGhosts();
+    moveGhosts();
+
+    blinkSuperBubbles();
+}
+
+function handleKeyPress(e) {
+    if (HOME) {
+        initGame(true);
+    } else {
+       	KEYDOWN = true;
+        if (PACMAN_DEAD && !LOCK) {
+            handlePacmanReset();
+        } else if (e.keyCode >= 37 && e.keyCode <= 40 && !PAUSE && !PACMAN_DEAD && !LOCK) {
+            handlePacmanMovement(e.keyCode);
+        } else if (e.keyCode === 80 && !PACMAN_DEAD && !LOCK) {
+            handleGamePause();
+        } else if (GAMEOVER) {
+            initHome();
+        }
+    }
+}
+
+$(document).ready(function () {
+    $("body").keyup(function (e) {
+        KEYDOWN = false; 
+    });
+
+    $("body").keydown(function (e) {
+        handleKeyPress(e); 
+    });
+});
+
 			});
 		</script>
 	
