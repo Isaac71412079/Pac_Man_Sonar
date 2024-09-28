@@ -625,114 +625,125 @@ function resumeGhosts() {
 	resumeGhost('clyde');
 }
 
+
 function drawHelperGhost(ctx, x, y, d, b, s, a) { 
-	
-	if (s != -1) { 
-		ctx.beginPath();
-		ctx.moveTo((x - 15), (y + 16));
-		ctx.lineTo((x - 15), (y + 16) - 18);
-		ctx.bezierCurveTo((x - 15), (y + 16) - 26, (x - 15) + 6, (y + 16) - 32, (x - 15) + 14, (y + 16) - 32);
-		ctx.bezierCurveTo((x - 15) + 22, (y + 16) - 32, (x - 15) + 28, (y + 16) - 26, (x - 15) + 28, (y + 16) - 18);
-		ctx.lineTo((x - 15) + 28, (y + 16));
-		if (b < 4) { 
-			ctx.lineTo((x - 15) + 23.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 18.666, (y + 16));
-			ctx.lineTo((x - 15) + 14, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 9.333, (y + 16));
-			ctx.lineTo((x - 15) + 4.666, (y + 16) - 5.333);
-		} else { 
-			ctx.lineTo((x - 15) + 24.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 20.666, (y + 16));
-			ctx.lineTo((x - 15) + 17.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 12.666, (y + 16));
-			ctx.lineTo((x - 15) + 9, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 5.333, (y + 16));
-			ctx.lineTo((x - 15) + 2.666, (y + 16) - 5.333);
-		}
-		ctx.lineTo((x - 15), (y + 16) );
-		ctx.fill();
-	}
+    if (s != -1) { 
+        drawGhostBody(ctx, x, y, b);
+    }
+    let { eyesX, eyesY } = getEyeOffsets(d);
+    
+    if (s === 0 || s === -1) {
+        drawGhostEyes(ctx, x, y, eyesX, eyesY);
+    } else {
+        drawGhostAfraid(ctx, x, y, a);
+    }
+}
 
-	let eyesX = 0;
-	let eyesY = 0;
-	
-	if (d === 4) { 
-		eyesY = -5;
-	} else if (d === 1) { 
-		eyesX = +2;
-	} else if (d === 2) { 
-		eyesY = 0;
-		eyesY = +5;
-	} else if (d === 3) { 
-		eyesX = -3;
-	}
+function drawGhostBody(ctx, x, y, b) {
+    ctx.beginPath();
+    ctx.moveTo((x - 15), (y + 16));
+    ctx.lineTo((x - 15), (y + 16) - 18);
+    ctx.bezierCurveTo((x - 15), (y + 16) - 26, (x - 15) + 6, (y + 16) - 32, (x - 15) + 14, (y + 16) - 32);
+    ctx.bezierCurveTo((x - 15) + 22, (y + 16) - 32, (x - 15) + 28, (y + 16) - 26, (x - 15) + 28, (y + 16) - 18);
+    ctx.lineTo((x - 15) + 28, (y + 16));
 
-	if (s === 0 || s === -1) { 
-		ctx.fillStyle = "white";
-		ctx.beginPath();
-		ctx.moveTo((x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 5 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 4 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 5 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 14 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 11 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 12 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 11 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
-		
-		ctx.moveTo((x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 17 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 16 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 17 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 14 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 23 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 24 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 23 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
-		ctx.fill();
-		
-		if (d === 4) { 
-			eyesY = -9;
-			eyesX = 2;
-		} else if (d === 1) { 
-			eyesX = +6;
-		} else if (d === 2) { 
-			eyesY = +8;
-			eyesX = 2;
-		} else if (d === 3) { 
-			
-		}
-		
-		ctx.fillStyle = "#0000fa";
-		ctx.beginPath();
-		ctx.arc((x - 15) + 18 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
-		ctx.fill();
+    if (b < 4) {
+        drawGhostFeet(ctx, x, y, true);
+    } else {
+        drawGhostFeet(ctx, x, y, false);
+    }
 
-		ctx.beginPath();
-		ctx.arc((x - 15) + 6 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
-		ctx.fill();
-	} else { 
-		if (a === 1) { 
-			ctx.fillStyle = "#ee2933";
-		} else { 
-			ctx.fillStyle = "#e5bed0";
-		}
-		ctx.beginPath();
-		ctx.arc((x - 15) + 18, (y + 13) - 17, 2, 0, Math.PI * 2, true);
-		ctx.fill();
+    ctx.lineTo((x - 15), (y + 16));
+    ctx.fill();
+}
 
-		ctx.beginPath();
-		ctx.arc((x - 15) + 10, (y + 13) - 17, 2, 0, Math.PI * 2, true);
-		ctx.fill();
-		
-		if (a === 1) { 
-			ctx.strokeStyle = "#ee2933";
-		} else { 
-			ctx.strokeStyle = "#e5bed0";
-		}
-		ctx.beginPath();
-		ctx.lineTo((x - 14.333) + 24, (y + 6));
-		
-		ctx.lineTo((x - 14.333) + 21, (y + 6) - 3);		
-		ctx.lineTo((x - 14.333) + 17, (y + 6));
-		
-		ctx.lineTo((x - 14.333) + 14, (y + 6) - 3);
-		ctx.lineTo((x - 14.333) + 10, (y + 6));
-		
-		ctx.lineTo((x - 14.333) + 7, (y + 6) - 3);
-		ctx.lineTo((x - 14.333) + 3, (y + 6));
-		ctx.stroke();
-	}
+function drawGhostFeet(ctx, x, y, smallFeet) {
+    if (smallFeet) {
+        ctx.lineTo((x - 15) + 23.333, (y + 16) - 5.333);
+        ctx.lineTo((x - 15) + 18.666, (y + 16));
+        ctx.lineTo((x - 15) + 14, (y + 16) - 5.333);
+        ctx.lineTo((x - 15) + 9.333, (y + 16));
+        ctx.lineTo((x - 15) + 4.666, (y + 16) - 5.333);
+    } else {
+        ctx.lineTo((x - 15) + 24.333, (y + 16) - 5.333);
+        ctx.lineTo((x - 15) + 20.666, (y + 16));
+        ctx.lineTo((x - 15) + 17.333, (y + 16) - 5.333);
+        ctx.lineTo((x - 15) + 12.666, (y + 16));
+        ctx.lineTo((x - 15) + 9, (y + 16) - 5.333);
+        ctx.lineTo((x - 15) + 5.333, (y + 16));
+        ctx.lineTo((x - 15) + 2.666, (y + 16) - 5.333);
+    }
+}
+
+function getEyeOffsets(d) {
+    let eyesX = 0, eyesY = 0;
+
+    switch (d) {
+        case 1:
+            eyesX = 2;
+            break;
+        case 2:
+            eyesY = 5;
+            break;
+        case 3:
+            eyesX = -3;
+            break;
+        case 4:
+            eyesY = -5;
+            break;
+    }
+
+    return { eyesX, eyesY };
+}
+
+function drawGhostEyes(ctx, x, y, eyesX, eyesY) {
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.moveTo((x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 5 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 19 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 4 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 5 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 14 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 11 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 19 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 12 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 11 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
+    
+    ctx.moveTo((x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 17 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 19 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 16 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 17 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 14 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 23 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 19 + eyesY);
+    ctx.bezierCurveTo((x - 15) + 24 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 23 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
+    ctx.fill();
+
+    drawPupils(ctx, x, y, eyesX, eyesY);
+}
+
+function drawPupils(ctx, x, y, eyesX, eyesY) {
+    ctx.fillStyle = "#0000fa";
+    ctx.beginPath();
+    ctx.arc((x - 15) + 18 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc((x - 15) + 6 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
+    ctx.fill();
+}
+
+function drawGhostAfraid(ctx, x, y, a) {
+    ctx.fillStyle = (a === 1) ? "#ee2933" : "#e5bed0";
+    ctx.beginPath();
+    ctx.arc((x - 15) + 18, (y + 13) - 17, 2, 0, Math.PI * 2, true);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc((x - 15) + 10, (y + 13) - 17, 2, 0, Math.PI * 2, true);
+    ctx.fill();
+
+    ctx.strokeStyle = (a === 1) ? "#ee2933" : "#e5bed0";
+    ctx.beginPath();
+    ctx.lineTo((x - 14.333) + 24, (y + 6));
+    ctx.lineTo((x - 14.333) + 21, (y + 6) - 3);    
+    ctx.lineTo((x - 14.333) + 17, (y + 6));
+    ctx.lineTo((x - 14.333) + 14, (y + 6) - 3);
+    ctx.lineTo((x - 14.333) + 10, (y + 6));
+    ctx.lineTo((x - 14.333) + 7, (y + 6) - 3);
+    ctx.lineTo((x - 14.333) + 3, (y + 6));
+    ctx.stroke();
 }
