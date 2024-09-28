@@ -294,79 +294,91 @@ function moveGhosts() {
 	moveGhost('inky');
 	moveGhost("clyde");
 }
-
+/////////////
 function moveGhost(ghost) {
-    if (!window['GHOST_' + ghost.toUpperCase() + '_MOVING']) {
-        window['GHOST_' + ghost.toUpperCase() + '_MOVING'] = true;
-
-        let speed = -1;
-        if (window['GHOST_' + ghost.toUpperCase() + '_STATE'] === 1) {
-            speed = GHOST_AFFRAID_MOVING_SPEED;
-        } else if (window['GHOST_' + ghost.toUpperCase() + '_STATE'] === 0) {
-            speed = window['GHOST_' + ghost.toUpperCase() + '_TUNNEL'] ? GHOST_TUNNEL_MOVING_SPEED : GHOST_MOVING_SPEED;
-        } else {
-            speed = GHOST_EAT_MOVING_SPEED;
-        }
-        window['GHOST_' + ghost.toUpperCase() + '_MOVING_TIMER'] = setInterval(() => moveGhost(ghost), speed);
+    const ghostUpper = ghost.toUpperCase();
+    if (!window[`GHOST_${ghostUpper}_MOVING`]) {
+        startGhostMovement(ghostUpper);
     } else {
-        changeDirection(ghost);
+        processGhostMovement(ghostUpper);
+    }
+}
 
-        const affraidTimer = window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_TIMER'];
-        if (affraidTimer) {
-            const remain = affraidTimer.remain();
-            if ((remain >= 2500 && remain < 3000) || (remain >= 1500 && remain <= 2000) || (remain >= 500 && remain <= 1000) || (remain < 0)) {
-                window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'] = 1;
-            } else if ((remain > 2000 && remain < 2500) || (remain > 1000 && remain < 1500) || (remain >= 0 && remain < 500)) {
-                window['GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE'] = 0;
-            }
+function startGhostMovement(ghostUpper) {
+    window[`GHOST_${ghostUpper}_MOVING`] = true;
+    const speed = getGhostSpeed(ghostUpper);
+    window[`GHOST_${ghostUpper}_MOVING_TIMER`] = setInterval(() => moveGhost(ghostUpper), speed);
+}
+
+function getGhostSpeed(ghostUpper) {
+    if (window[`GHOST_${ghostUpper}_STATE`] === 1) {
+        return GHOST_AFFRAID_MOVING_SPEED;
+    }
+    return window[`GHOST_${ghostUpper}_TUNNEL`] ? GHOST_TUNNEL_MOVING_SPEED : GHOST_MOVING_SPEED;
+}
+
+function processGhostMovement(ghostUpper) {
+    changeDirection(ghostUpper);
+    handleGhostAfraidState(ghostUpper);
+    if (canMoveGhost(ghostUpper)) {
+        updateGhostPosition(ghostUpper);
+        drawGhost(ghostUpper);
+        testGhostInteractions(ghostUpper);
+    } else {
+        window[`GHOST_${ghostUpper}_DIRECTION`] = oneDirection();
+    }
+}
+
+function handleGhostAfraidState(ghostUpper) {
+    const afraidTimer = window[`GHOST_${ghostUpper}_AFFRAID_TIMER`];
+    if (afraidTimer) {
+        const remainingTime = afraidTimer.remain();
+        window[`GHOST_${ghostUpper}_AFFRAID_STATE`] = (remainingTime < 0 || (remainingTime >= 500 && remainingTime <= 1000)) ? 1 : 0;
+    }
+}
+
+function updateGhostPosition(ghostUpper) {
+    eraseGhost(ghostUpper);
+    const currentDirection = window[`GHOST_${ghostUpper}_DIRECTION`];
+    const positionStep = GHOST_POSITION_STEP;
+
+    switch (currentDirection) {
+        case 1: window[`GHOST_${ghostUpper}_POSITION_X`] += positionStep; break;
+        case 2: window[`GHOST_${ghostUpper}_POSITION_Y`] += positionStep; break;
+        case 3: window[`GHOST_${ghostUpper}_POSITION_X`] -= positionStep; break;
+        case 4: window[`GHOST_${ghostUpper}_POSITION_Y`] -= positionStep; break;
+    }
+    handleGhostPositionLoop(ghostUpper);
+    updateGhostBodyState(ghostUpper);
+}
+
+function handleGhostPositionLoop(ghostUpper) {
+    const posX = window[`GHOST_${ghostUpper}_POSITION_X`];
+    const posY = window[`GHOST_${ghostUpper}_POSITION_Y`];
+
+    if (posX === 2 && posY === 258) {
+        window[`GHOST_${ghostUpper}_POSITION_X`] = 548;
+    } else if (posX === 548 && posY === 258) {
+        window[`GHOST_${ghostUpper}_POSITION_X`] = 2;
+    }
+}
+
+function updateGhostBodyState(ghostUpper) {
+    const currentBodyState = window[`GHOST_${ghostUpper}_BODY_STATE`];
+    window[`GHOST_${ghostUpper}_BODY_STATE`] = currentBodyState < GHOST_BODY_STATE_MAX ? currentBodyState + 1 : 0;
+}
+
+function testGhostInteractions(ghostUpper) {
+    if (window[`GHOST_${ghostUpper}_BODY_STATE`] === 3 && window[`GHOST_${ghostUpper}_STATE`] !== -1) {
+        if (!PACMAN_MOVING) {
+            testGhostPacman(ghostUpper);
         }
-
-        if (canMoveGhost(ghost)) {
-            eraseGhost(ghost);
-            if (window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE'] < GHOST_BODY_STATE_MAX) {
-                window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE']++;
-            } else {
-                window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE'] = 0;
-            }
-
-            switch (window['GHOST_' + ghost.toUpperCase() + '_DIRECTION']) {
-                case 1:
-                    window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] += GHOST_POSITION_STEP;
-                    break;
-                case 2:
-                    window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] += GHOST_POSITION_STEP;
-                    break;
-                case 3:
-                    window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] -= GHOST_POSITION_STEP;
-                    break;
-                case 4:
-                    window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] -= GHOST_POSITION_STEP;
-                    break;
-            }
-
-            if (window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] === 2 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] === 258) {
-                window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] = 548;
-                window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] = 258;
-            } else if (window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] === 548 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] === 258) {
-                window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] = 2;
-                window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] = 258;
-            }
-
-            drawGhost(ghost);
-
-            if (window['GHOST_' + ghost.toUpperCase() + '_BODY_STATE'] === 3 && window['GHOST_' + ghost.toUpperCase() + '_STATE'] !== -1) {
-                if (!PACMAN_MOVING) {
-                    testGhostPacman(ghost);
-                }
-                testGhostTunnel(ghost);
-            }
-        } else {
-            window['GHOST_' + ghost.toUpperCase() + '_DIRECTION'] = oneDirection();
-        }
+        testGhostTunnel(ghostUpper);
     }
 }
 
 
+/////////////////
 function testGhostTunnel(ghost) {
     if (window['GHOST_' + ghost.toUpperCase() + '_STATE'] === 0) {
         if (isInTunnel(ghost) && !window['GHOST_' + ghost.toUpperCase() + '_TUNNEL']) {
@@ -387,76 +399,57 @@ function isInTunnel(ghost) {
         (window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] >= 462 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] <= 548 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] === 258)
     );
 }
-
+//////////
 function changeDirection(ghost) {
     const ghostUpper = ghost.toUpperCase();
-        const ghostProperties = {
+    const { direction, state, positionX, positionY } = getGhostProperties(ghostUpper);
+    let tryDirection = oneDirection();
+
+    if (state === 0 || state === 1) {
+        tryDirection = calculateGhostDirection(ghost, positionX, positionY);
+    } else {
+        tryDirection = getRightDirectionForHome(oneAxe(), positionX, positionY);
+    }
+
+    if (canMoveGhost(ghost, tryDirection) && !isOppositeDirection(direction, tryDirection)) {
+        window[`GHOST_${ghostUpper}_DIRECTION`] = tryDirection;
+    }
+}
+
+function getGhostProperties(ghostUpper) {
+    return {
         direction: window[`GHOST_${ghostUpper}_DIRECTION`],
         state: window[`GHOST_${ghostUpper}_STATE`],
         positionX: window[`GHOST_${ghostUpper}_POSITION_X`],
         positionY: window[`GHOST_${ghostUpper}_POSITION_Y`]
     };
-
-    let tryDirection = oneDirection();
-
-    if (ghostProperties.state === 0 || ghostProperties.state === 1) { 
-        if (ghostProperties.positionX !== 276 && ghostProperties.positionY !== 258) { 
-            let pacmanX = PACMAN_POSITION_X;
-            let pacmanY = PACMAN_POSITION_Y;
-            let axe = oneAxe();
-
-            if (ghost === "blinky") { 
-                let nothing = whatsYourProblem();
-                if (nothing < 6) { 
-                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
-                        axe++;
-                        if (axe > 2) axe = 1; 
-                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    }
-                }
-            } else if (ghost === "pinky") { 
-                let nothing = whatsYourProblem();
-                if (nothing < 3) { 
-                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
-                        axe++;
-                        if (axe > 2) axe = 1; 
-                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    }
-                    tryDirection = reverseDirection(tryDirection);
-                }
-            } else if (ghost === "inky") { 
-                let good = anyGoodIdea();
-                if (good < 3) { 
-                    tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    if (!(canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2))) { 
-                        axe++;
-                        if (axe > 2) axe = 1; 
-                        tryDirection = getRightDirection(axe, ghostProperties.positionX, ghostProperties.positionY, pacmanX, pacmanY);
-                    }
-                }
-            }
-        }
-        if (ghostProperties.state === 1) { 
-            tryDirection = reverseDirection(tryDirection);
-        }
-    } else { 
-        let axe = oneAxe();
-        tryDirection = getRightDirectionForHome(axe, ghostProperties.positionX, ghostProperties.positionY);
-        if (canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2)) { 
-        } else { 
-            axe++;
-            if (axe > 2) axe = 1; 
-            tryDirection = getRightDirectionForHome(axe, ghostProperties.positionX, ghostProperties.positionY);
-        }
-    }
-
-    if (canMoveGhost(ghost, tryDirection) && (ghostProperties.direction !== tryDirection - 2 && ghostProperties.direction !== tryDirection + 2)) { 
-        window[`GHOST_${ghostUpper}_DIRECTION`] = tryDirection; 
-    }
 }
 
+function calculateGhostDirection(ghost, posX, posY) {
+    if (posX !== 276 && posY !== 258) {
+        const pacmanX = PACMAN_POSITION_X;
+        const pacmanY = PACMAN_POSITION_Y;
+        let axe = oneAxe();
+        return calculateTargetDirection(ghost, axe, posX, posY, pacmanX, pacmanY);
+    }
+    return reverseDirection(oneDirection());
+}
+
+function calculateTargetDirection(ghost, axe, ghostX, ghostY, pacmanX, pacmanY) {
+    let tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
+    if (!canMoveGhost(ghost, tryDirection) || isOppositeDirection(window[`GHOST_${ghost.toUpperCase()}_DIRECTION`], tryDirection)) {
+        axe = (axe % 2) + 1;
+        tryDirection = getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY);
+    }
+    return tryDirection;
+}
+
+function isOppositeDirection(direction, tryDirection) {
+    return Math.abs(direction - tryDirection) === 2;
+}
+
+
+////////////////
 
 function getRightDirectionForHome(axe, ghostX, ghostY) { 
 	let homeX = 276;
