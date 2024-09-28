@@ -624,8 +624,6 @@ function resumeGhosts() {
 	resumeGhost('inky');
 	resumeGhost('clyde');
 }
-
-
 function drawHelperGhost(ctx, x, y, d, b, s, a) { 
     if (s != -1) { 
         drawGhostBody(ctx, x, y, b);
