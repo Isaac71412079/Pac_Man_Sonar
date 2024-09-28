@@ -462,25 +462,16 @@ function getRightDirectionForHome(axe, ghostX, ghostY) {
 	let homeX = 276;
 	let homeY = 204;
 	
-	if (ghostY === 204 && ghostX === 276) { 	
-		return 2;
-	} else if (ghostX === 276 && ghostY === 258) { 
-		return oneDirectionX();
-	} else { 
-		if (axe === 1) { 
-			if (ghostX > homeX) { 
-			 return 3;
-			} else { 
-				return 1;
-			}
-		} else { 
-			if (ghostY > homeY) { 
-			 return 4;
-			} else { 
-				return 2;
-			}
-		}
-	}
+    if (ghostY === 204 && ghostX === 276) { 	
+        return 2;
+    } else if (ghostX === 276 && ghostY === 258) { 
+        return oneDirectionX();
+    } else if (axe === 1) { 
+        return (ghostX > homeX) ? 3 : 1;
+    } else { 
+        return (ghostY > homeY) ? 4 : 2;
+    }
+    
 }
 function getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY) { 
 	if (axe === 1) { 
