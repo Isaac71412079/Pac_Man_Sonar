@@ -294,7 +294,7 @@ function moveGhosts() {
 	moveGhost('inky');
 	moveGhost("clyde");
 }
-/////////////
+
 function moveGhost(ghost) {
     const ghostUpper = ghost.toUpperCase();
     if (!window[`GHOST_${ghostUpper}_MOVING`]) {
@@ -377,8 +377,6 @@ function testGhostInteractions(ghostUpper) {
     }
 }
 
-
-/////////////////
 function testGhostTunnel(ghost) {
     if (window['GHOST_' + ghost.toUpperCase() + '_STATE'] === 0) {
         if (isInTunnel(ghost) && !window['GHOST_' + ghost.toUpperCase() + '_TUNNEL']) {
@@ -399,7 +397,7 @@ function isInTunnel(ghost) {
         (window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] >= 462 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_X'] <= 548 && window['GHOST_' + ghost.toUpperCase() + '_POSITION_Y'] === 258)
     );
 }
-//////////
+
 function changeDirection(ghost) {
     const ghostUpper = ghost.toUpperCase();
     const { direction, state, positionX, positionY } = getGhostProperties(ghostUpper);
@@ -448,9 +446,6 @@ function isOppositeDirection(direction, tryDirection) {
     return Math.abs(direction - tryDirection) === 2;
 }
 
-
-////////////////
-
 function getRightDirectionForHome(axe, ghostX, ghostY) { 
 	let homeX = 276;
 	let homeY = 204;
@@ -467,20 +462,13 @@ if (ghostY === 204 && ghostX === 276) {
 
 }
 function getRightDirection(axe, ghostX, ghostY, pacmanX, pacmanY) { 
-	if (axe === 1) { 
-		if (ghostX > pacmanX) { 
-		 return 3;
-		} else { 
-			return 1;
-		}
-	} else { 
-		if (ghostY > pacmanY) { 
-		 return 4;
-		} else { 
-			return 2;
-		}
-	}
+    if (axe === 1) { 
+		return ghostX > pacmanX ? 3 : 1;
+	} 
+	
+	return ghostY > pacmanY ? 4 : 2;
 }
+
 function reverseDirection(direction) { 
 	if (direction > 2) return direction - 2;
 	else return direction + 2;
